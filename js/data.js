@@ -1,4 +1,4 @@
-import {generateRandom} from './util.js';
+import {generateRandom} from './pictures.js';
 
 const DESCRIPTIONS = [
   'Продолжай улыбаться, потому что жизнь — прекрасная вещь и есть еще так много поводов для улыбки.',
@@ -66,4 +66,5 @@ function generateDescriptions(){
   return (descriptions);
 }
 
-export {generateDescriptions};
+const image = generateDescriptions();
+export {image};
