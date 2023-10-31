@@ -1,2 +1,4 @@
-import {generateDescriptions} from './data.js';
-generateDescriptions();
+import {image} from './data.js';
+import {renderPictures} from './pictures.js';
+
+renderPictures(image);
