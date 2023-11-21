@@ -1,4 +1,12 @@
-import {image} from './data.js';
-import {renderPictures} from './pictures.js';
+import {renderPhotos} from './photos.js';
+import {renderModal} from './modal.js';
 
-renderPictures(image);
+const setupImageGallery = (imagesData) => {
+  renderPhotos(imagesData);
+
+  document.addEventListener('photoSelect', (event) => {
+    renderModal(event.detail);
+  });
+};
+
+export {setupImageGallery};
