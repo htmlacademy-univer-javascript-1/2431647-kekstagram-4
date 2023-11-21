@@ -22,11 +22,13 @@ const createCommentsData = (itemCount) => {
 };
 
 const createImagesData = (itemCount = 25) => {
+
   const description = [
     'Одна хорошая мысль утром меняет смысл целого дня.',
     'Что бы ни случилось завтра, у нас есть еще сегодня.',
     'Настойчивость окупается сполна. Будь голосом, а не эхом.'
   ];
+
   return new Array(itemCount).fill(1).map((start,index) => ({
     id: start + index,
     url: `photos/${start + index}.jpg`,

@@ -1,10 +1,11 @@
 import {renderComments} from './comments.js';
 
-const modal = document.querySelector('.big-picture');
+const popup = document.querySelector('.big-picture');
 const closeButton = document.querySelector('.big-picture__cancel');
 
-const closeModal = () => {
-  modal.classList.add('hidden');
+
+const closePopup = () => {
+  popup.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeyDown);
   closeButton.removeEventListener('click', onCancelButtonClick);
@@ -12,30 +13,31 @@ const closeModal = () => {
 
 function onDocumentKeyDown (event) {
   if (event.key === 'Escape'){
-    closeModal();
+    closePopup();
   }
 }
 
+
 function onCancelButtonClick () {
-  closeModal();
+  closePopup();
 }
 
-const openModal = () => {
-  modal.classList.remove('hidden');
+const openPopup = () => {
+  popup.classList.remove('hidden');
+  popup.scroll(0, 0);
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeyDown);
   closeButton.addEventListener('click', onCancelButtonClick);
-
 };
 
-const renderModal = (properties) => {
+const renderPopup = (properties) => {
   const {url, description, likes, comments} = properties;
-  modal.querySelector('.big-picture__img img').src = url;
-  modal.querySelector('.big-picture__img img').alt = description;
-  modal.querySelector('.likes-count').textContent = likes;
-  modal.querySelector('.social__caption').textContent = description;
+  popup.querySelector('.big-picture__img img').src = url;
+  popup.querySelector('.big-picture__img img').alt = description;
+  popup.querySelector('.likes-count').textContent = likes;
+  popup.querySelector('.social__caption').textContent = description;
   renderComments(comments);
-  openModal();
+  openPopup();
 };
 
-export {renderModal};
+export {renderPopup};
