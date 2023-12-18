@@ -2,65 +2,67 @@ import { fillFragment } from '../util.js';
 
 const COMMENTS_PER_LOAD = 5;
 
-const loadCommentsButton = document.querySelector('.social__comments-loader');
 const commentTemplate = document.querySelector('.social__comment');
-const commentsContainer = document.querySelector('.social__comments');
-const currentCommentsCountNode = document.querySelector('.loaded-comments-count');
+const commentsContainerNode = document.querySelector('.social__comments');
+const currentCommentsCountNode = document.querySelector('.social__comment-shown-count');
+const loadCommentsButtonNode = document.querySelector('.social__comments-loader');
 
 let comments = [];
-let lastCommentNumber = 0;
+let endCommentNumber = 0;
 
 const changeVisibleCommentsCount = (current) => {
   currentCommentsCountNode.textContent = current;
 };
 
-const hideLoadCommentsButton = () => loadCommentsButton.classList.add('hidden');
+const hideLoadCommentsButton = () => loadCommentsButtonNode.classList.add('hidden');
 
-const showLoadCommentsButton = () => loadCommentsButton.classList.remove('hidden');
+const showLoadCommentsButton = () => loadCommentsButtonNode.classList.remove('hidden');
 
 const resetCommentData = () => {
-  lastCommentNumber = 0;
+  endCommentNumber = 0;
   comments = [];
-  loadCommentsButton.removeEventListener('click', renderComments);
+  loadCommentsButtonNode.removeEventListener('click', renderComments);
 };
 
 const createCommentNode = ({ avatar, message, name }) => {
   const commentNode = commentTemplate.cloneNode(true);
-  const commentNodePicture = commentNode.querySelector('.social__picture');
-  commentNodePicture.src = avatar;
-  commentNodePicture.alt = name;
+  const commentPictureNode = commentNode.querySelector('.social__picture');
+  commentPictureNode.src = avatar;
+  commentPictureNode.alt = name;
   commentNode.querySelector('.social__text').textContent = message;
   return commentNode;
 };
 
 const getComments = () => {
-  const commentsToShow = comments.slice(lastCommentNumber, lastCommentNumber + COMMENTS_PER_LOAD);
-  lastCommentNumber += commentsToShow.length;
+  const commentsToShow = comments.slice(endCommentNumber, endCommentNumber + COMMENTS_PER_LOAD);
+  endCommentNumber += commentsToShow.length;
   return commentsToShow;
 };
 
 const addComments = (currentComments) => {
   const commentsFragment = fillFragment(currentComments, createCommentNode);
-  commentsContainer.append(commentsFragment);
+  commentsContainerNode.append(commentsFragment);
 };
 
 function renderComments() {
-  showLoadCommentsButton();
   const commentsToShow = getComments();
   addComments(commentsToShow);
-  changeVisibleCommentsCount(lastCommentNumber);
+  changeVisibleCommentsCount(endCommentNumber);
+  showLoadCommentsButton();
 
-  if (comments.length - lastCommentNumber === 0) {
+  if (comments.length - endCommentNumber === 0) {
     hideLoadCommentsButton();
     resetCommentData();
   }
 }
 
+const onLoadCommentsButtonClick = renderComments;
+
 const showComments = (newComments) => {
-  commentsContainer.innerHTML = '';
+  commentsContainerNode.innerHTML = '';
   comments = newComments;
   renderComments();
-  loadCommentsButton.addEventListener('click', renderComments);
+  loadCommentsButtonNode.addEventListener('click', onLoadCommentsButtonClick);
 };
 
 export { showComments, resetCommentData };
