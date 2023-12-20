@@ -7,8 +7,10 @@ const fillFragment = (data, createItemNode) => {
 const hasFocusOnInput = () => document.activeElement.hasAttribute('data-no-close-on-focus');
 
 const closeModalOnEsc = (event, closeModal) => {
-  if (event.key === 'Escape' && !hasFocusOnInput()) {
-    closeModal();
+  if (event.key === 'Escape' &&
+  !hasFocusOnInput()) {
+      event.preventDefault();
+      closeModal();
   }
 };
 
