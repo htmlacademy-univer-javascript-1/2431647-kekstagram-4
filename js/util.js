@@ -9,8 +9,8 @@ const hasFocusOnInput = () => document.activeElement.hasAttribute('data-no-close
 const closeModalOnEsc = (event, closeModal) => {
   if (event.key === 'Escape' &&
   !hasFocusOnInput()) {
-      event.preventDefault();
-      closeModal();
+    event.preventDefault();
+    closeModal();
   }
 };
 

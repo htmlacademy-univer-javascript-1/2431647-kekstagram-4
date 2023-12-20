@@ -2,7 +2,7 @@ import { showComments, resetCommentData } from './comments.js';
 import { closeModalOnEsc } from '../util.js';
 
 const closeButtonNode = document.getElementById('picture-cancel');
-const modalNode = document.querySelector('.big-picture')
+const modalNode = document.querySelector('.big-picture');
 const body = document.body;
 
 const onCloseIconClick = closeFullscreen;
